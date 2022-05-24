@@ -17,6 +17,7 @@ public class Stationview extends Controller
         for(Reading reading :station.readings){
             reading.setFahrenheitTemp();
             reading.setBeaufort();
+            reading.setWindChill();
             reading.save();
         }
 
@@ -24,9 +25,9 @@ public class Stationview extends Controller
         render("stationview.html", station);
     }
 
-    public static void addReading(Long id, int code, double temperature, double windSpeed, int pressure)
+    public static void addReading(Long id, int code, double temperature, double windSpeed, int pressure, int windDirection)
     {
-        Reading reading = new Reading(code,temperature,windSpeed,pressure);
+        Reading reading = new Reading(code,temperature,windSpeed,pressure,windDirection);
         Station currentstation = Station.findById(id);
         currentstation.readings.add(reading);
         currentstation.save();
